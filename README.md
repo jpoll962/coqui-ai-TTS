@@ -22,31 +22,31 @@
 
 </div>
 
-## 📣 News
-- **Fork of the [original, unmaintained repository](https://github.com/coqui-ai/TTS). New PyPI package: [coqui-tts](https://pypi.org/project/coqui-tts)**
-- 0.25.0: [OpenVoice](https://github.com/myshell-ai/OpenVoice) models now available for voice conversion.
-- 0.24.2: Prebuilt wheels are now also published for Mac and Windows (in addition to Linux as before) for easier installation across platforms.
-- 0.20.0: XTTSv2 is here with 17 languages and better performance across the board. XTTS can stream with <200ms latency.
-- 0.19.0: XTTS fine-tuning code is out. Check the [example recipes](https://github.com/idiap/coqui-ai-TTS/tree/dev/recipes/ljspeech).
-- 0.14.1: You can use [Fairseq models in ~1100 languages](https://github.com/facebookresearch/fairseq/tree/main/examples/mms) with 🐸TTS.
+## 📣 Notice
+### This is a fork of the [new Coqui TTS](https://github.com/idiap/coqui-ai-TTS) which is a fork of the [old Coqui TTS that is now unmaintained repository](https://github.com/coqui-ai/TTS) that shutdown.
+- **New PyPI package: [coqui-tts](https://pypi.org/project/coqui-tts)**
+- Make sure you aren't using the Python package [TTS](https://pypi.org/project/TTS/). You should be using [Coqui-TTS](https://pypi.org/project/coqui-tts/).
 
-## 💬 Where to ask questions
-Please use our dedicated channels for questions and discussion. Help is much more valuable if it's shared publicly so that more people can benefit from it.
+From here on, I will **not** reference the old Coqui TTS (unless explicitly stated), so if I mention the "previous Coqui TTS" or the "old Coqui TTS", I am referring to [idiap/coqui-ai-TTS](https://github.com/idiap/coqui-ai-TTS).
 
-| Type                                         | Platforms                           |
-| -------------------------------------------- | ----------------------------------- |
-| 🚨 **Bug Reports, Feature Requests & Ideas** | [GitHub Issue Tracker]              |
-| 👩‍💻 **Usage Questions**                       | [GitHub Discussions]                |
-| 🗯 **General Discussion**                    | [GitHub Discussions] or [Discord]   |
 
-[github issue tracker]: https://github.com/idiap/coqui-ai-TTS/issues
-[github discussions]: https://github.com/idiap/coqui-ai-TTS/discussions
-[discord]: https://discord.gg/5eXr5seRrv
-[Tutorials and Examples]: https://github.com/coqui-ai/TTS/wiki/TTS-Notebooks-and-Tutorials
+My goal with this fork is to document my attempts to clone a voice using [Coqui-TTS](https://github.com/idiap/coqui-ai-TTS) to be used on [Home Assistant](https://www.home-assistant.io/). I am running the cloned voice on my local desktop. My Home Assistant is running on a [Raspberry Pi 5](https://www.pishop.us/product/raspberry-pi-5-8gb/) with 8 GB of RAM. As of right now, they both run on the same network, but, in the future, I will attempt to have these operations be performed over the internet.
 
-The [issues](https://github.com/coqui-ai/TTS/issues) and
-[discussions](https://github.com/coqui-ai/TTS/discussions) in the original
-repository are also still a useful source of information.
+As a result, I have emphasized human-like speech synthesis, so any results or features that did not aid in this endeavor may have been removed from the old version of Coqui-TTS. I also did not use Docker, so a lot of that was removed. If you are interested in running Docker, feel free to refer to the previous Coqui-TTS repo.
+
+My **local desktop** is running on the following components:
+* **OS:** Ubuntu 24.04
+* **GPU:** Sapphire AMD Radeon RX 7900 XT - 20 GB GDR6, AMD RDNA 3
+* **CPU:** Intel i7 14th generation - 14700K with 20 cores (8 P-Cores + 12 E-Cores)
+* **CPU Cooler:** Corsair iCUE Link Titan 360 RX RGB Liquid CPU Cooler - 360 mm AIO
+* **PSU:** Corsair HX1000i Fully Modular Ultra-Low Noise
+* **Storage:** WD_BLACK 4 TB SN850X NVMe M.2 SSD with Heatsink
+* **Memory:** Corsair Vengeance RGB DDR5 RAM 96 GB (2x48GB) 5600 MHz CL40 XMP
+* **Motherboard:** ASUS TUF Gaming Z790-PLus Wi-Fi LGA 1700 ATX
+
+
+## 💬 Where to ask questions (idiap/coqui-ai-TTS)
+If it's about my modifications of Coqui-TTS, you can message me directly on GitHub. If it's not about my modifications, please refer to [idiap's version of coqui-ai-TTS](https://github.com/idiap/coqui-ai-TTS).
 
 
 ## 🔗 Links and Resources
@@ -56,6 +56,8 @@ repository are also still a useful source of information.
 | 💾 **Installation**               | [TTS/README.md](https://github.com/idiap/coqui-ai-TTS/tree/dev#installation)|
 | 👩‍💻 **Contributing**               | [CONTRIBUTING.md](https://github.com/idiap/coqui-ai-TTS/blob/main/CONTRIBUTING.md)|
 | 🚀 **Released Models**            | [Standard models](https://github.com/idiap/coqui-ai-TTS/blob/dev/TTS/.models.json) and [Fairseq models in ~1100 languages](https://github.com/idiap/coqui-ai-TTS#example-text-to-speech-using-fairseq-models-in-1100-languages-)|
+
+For my specific changes, you can read about them in their corresponding *.md files on this fork.
 
 ## Features
 - High-performance text-to-speech and voice conversion models, see list below.
@@ -119,18 +121,22 @@ You can also help us implement more models.
 🐸TTS is tested on Ubuntu 24.04 with **python >= 3.10, < 3.13**, but should also
 work on Mac and Windows.
 
-If you are only interested in [synthesizing speech](https://coqui-tts.readthedocs.io/en/latest/inference.html) with the pretrained 🐸TTS models, installing from PyPI is the easiest option.
-
-```bash
-pip install coqui-tts
-```
-
 If you plan to code or train models, clone 🐸TTS and install it locally.
 
 ```bash
 git clone https://github.com/idiap/coqui-ai-TTS
+```
+```bash
 cd coqui-ai-TTS
+```
+```bash
 pip install -e .
+```
+
+When I was starting up the repo, I received errors with the previous steps alone, so if you have issues as well, or if you are only interested in [synthesizing speech](https://coqui-tts.readthedocs.io/en/latest/inference.html) with the pretrained 🐸TTS models, installing from PyPI is the easiest option.
+
+```bash
+pip install coqui-tts
 ```
 
 ### Optional dependencies
@@ -152,6 +158,9 @@ You can install extras with one of the following commands:
 
 ```bash
 pip install coqui-tts[server,ja]
+```
+or
+```bash
 pip install -e .[server,ja]
 ```
 
@@ -161,25 +170,12 @@ If you are on Ubuntu (Debian), you can also run the following commands for insta
 
 ```bash
 make system-deps
+```
+```bash
 make install
 ```
 
 <!-- end installation -->
-
-## Docker Image
-You can also try out Coqui TTS without installation with the docker image.
-Simply run the following command and you will be able to run TTS:
-
-```bash
-docker run --rm -it -p 5002:5002 --entrypoint /bin/bash ghcr.io/idiap/coqui-tts-cpu
-python3 TTS/server/server.py --list_models #To get the list of available models
-python3 TTS/server/server.py --model_name tts_models/en/vctk/vits # To start a server
-```
-
-You can then enjoy the TTS server [here](http://localhost:5002/). More details,
-like GPU support and a Docker Compose configuration, can be found [in the
-documentation](https://coqui-tts.readthedocs.io/en/latest/docker_images.html).
-
 
 ## Synthesizing speech by 🐸TTS
 <!-- start inference -->
@@ -308,6 +304,8 @@ You can either use your trained model or choose a model from the provided list.
   For example:
   ```sh
   tts --model_info_by_name tts_models/tr/common-voice/glow-tts
+  ```
+  ```sh
   tts --model_info_by_name vocoder_models/en/ljspeech/hifigan_v2
   ```
 
