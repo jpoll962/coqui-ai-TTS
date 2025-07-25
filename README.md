@@ -177,6 +177,38 @@ make install
 
 <!-- end installation -->
 
+## A Note on GPU Usage
+The original Coqui-TTS includes GPU capabilities for Nvidia, but, as you can see above, I am running an AMD GPU. As of right now, I haven't figured out how to have the software use my AMD GPU, but the software does recognize my AMD GPU, so that's a start. I will work on the implementation of the AMD GPU once everything else is up and running since the CPU support is sufficient for now.
+
+GPU Usage is noted in the following files (maybe more):
+* Markdown files:
+  - `/root/README.md`
+    - Mentions GPU usage in the context of running TTS models, e.g., using `"cuda"` as the device in Python API examples and references to GPU in hardware requirements.
+  - `/root/recipes/bel-alex73/README.md`
+    - Describes running training with GPU, e.g., using `CUDA_VISIBLE_DEVICES` and multi-GPU training.
+  - `/root/docs/source/training/training_a_model.md`
+    - Explains how to check available GPUs (`nvidia-smi`) and how to run multi-GPU training with `CUDA_VISIBLE_DEVICES`.
+  - `/root/docs/source/docker_images.md`
+    - Shows how to run Docker containers with GPU support using `--gpus all` and mentions checking CUDA version with `nvidia-smi`.
+
+* Python scripts:
+  - `/root/TTS/bin/collect_env_info.py`
+    - Collects and prints CUDA (GPU) info, including device names and availability.
+  - `/root/TTS/tts/layers/xtts/gpt.py`
+    - Has parameters for number of GPUs and DeepSpeed inference.
+  - `/root/TTS/utils/distribute.py`
+    - Contains functions for initializing distributed training across multiple GPUs using PyTorch.
+  - `/root/TTS/tts/models/vits.py`
+    - Handles distributed sampling and batch samplers for multi-GPU training.
+  - `/root/TTS/bin/compute_statistics.py` 
+    - Uses `torch.cuda.is_available()` to determine device for processing.
+  - `/root/TTS/demos/xtts_ft_demo/xtts_demo.py`
+    - Calls `clear_gpu_cache()` to manage GPU memory during dataset preprocessing.
+  - `/root/notebooks (e.g., ExtractTTSpectrogram.ipynb, notebooks/TestAttention.ipynb)`
+    - Use `torch.cuda.is_available()` and set `CUDA_VISIBLE_DEVICES` for GPU selection.
+
+This is a good starting point to guide someone that is wanting to add AMD GPU support.
+
 ## Synthesizing speech by 🐸TTS
 <!-- start inference -->
 ### 🐍 Python API
